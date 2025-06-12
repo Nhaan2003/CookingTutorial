@@ -1,27 +1,28 @@
 package com.example.cookingtutorial.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "RecipeIngredients")
+@Getter
+@Setter
+@IdClass(RecipeIngredientId.class)
 public class RecipeIngredient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "recipeID")
     private Recipe recipe;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "ingredientID")
     private Ingredient ingredient;
 
     private String quantity;
     private String unit;
-    private String notes;
     private String preparationMethod;
+    private String notes;
 }

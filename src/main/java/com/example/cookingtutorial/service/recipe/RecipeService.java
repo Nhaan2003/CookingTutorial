@@ -37,9 +37,17 @@ public class RecipeService implements IRecipeService {
 
     @Override
     public List<RecipeResponse> filterRecipes(String category, Integer difficulty) {
-        List<Recipe> recipes = recipeRepository.findByCategoryAndDifficulty(category, difficulty);
+        List<Recipe> recipes;
+
+        if (difficulty != null) {
+            recipes = recipeRepository.findByDifficultyLevelAndIsVerifiedTrueOrderByCreatedAtDesc(difficulty);
+        } else {
+            recipes = recipeRepository.findByIsVerifiedTrueOrderByCreatedAtDesc();
+        }
+
         return recipes.stream().map(this::convertToResponse).collect(Collectors.toList());
     }
+
 
     @Override
     public List<RecipeResponse> suggestRecipes(SuggestRecipeRequest request) {

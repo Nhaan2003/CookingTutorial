@@ -15,6 +15,8 @@ public interface IRecipeRepository extends JpaRepository<Recipe, Integer> {
     List<Recipe> findByIngredients_Ingredient_IngredientNameIn(List<String> ingredientNames);
 
     // Lọc theo category và difficulty
-    List<Recipe> findByCategoryAndDifficulty(String category, Integer difficulty);
+    List<Recipe> findByCategories_NameAndDifficultyLevel(String categoryName, Integer difficultyLevel);
+
+    List<Recipe> findByDifficultyLevelAndIsVerifiedTrueOrderByCreatedAtDesc(Integer difficultyLevel);
 
 }
